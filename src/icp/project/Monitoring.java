@@ -1,41 +1,59 @@
 package icp.project;
 import java.util.ArrayList;
 import java.util.Scanner;
-/*
- * @author Ransford Nyarko
- * @author Naa Akle Noi
+import java.util.Scanner;
+
+/**
  * @author Georgette Asiedu
+ * @author Naa Akle Noi
+ * @author Ransford Nyarko
  * @author Joseph Prince-Agbodjan
- * @version 1.1
  * 
  * This is the monitoring class which holds information about all observatories.
  */
-import java.util.Scanner;
+ 
 
 public class Monitoring {
-	ArrayList<Observatory> OBevents;
 	
-	public Monitoring(ArrayList<Observatory> OBevents) {
-		this.OBevents = OBevents;
+	ArrayList<Observatory> OBevents;			//instance of an arrayList to hold all the observatories
+	
+	
+	
+	/**
+	 * Default Constructor
+	 */
+	public Monitoring() {}
+	
+	
+	
+	/**
+	 * @param 
+	 */
+	public Monitoring(Observatory d) {
+		
+		String hold = d.getNameofObservatory();
+		
+		
+		
 	}
 	
 	public int getObsWithLargeVal() {
 		int largest = 0;
 		Observatory os = new Observatory();
 		for (int i = 0; i > OBevents.size() - 1; i++ ) {
-			if(OBevents.get(i).getLargestColour() > largest) {
-				largest = OBevents.get(i).getLargestColour();
+			if(OBevents.get(i).getLargestColorValue() > largest) {
+				largest = OBevents.get(i).getLargestColorValue();
 				os = OBevents.get(i);
 			}
 		}
-		return os.getLargestColour();
+		return os.getLargestColorValue();
 	}
 	
 	public double getObsWithLargAvgeVal() {
 		double largest = 0;
 		Observatory os1 = new Observatory();
 		for (int i = 0; i > OBevents.size() - 1; i++ ) {
-			if(OBevents.get(i).getLargestColour() > largest) {
+			if(OBevents.get(i).getLargestColorValue() > largest) {
 				largest = OBevents.get(i).getAverageColVal();
 				os1 = OBevents.get(i);
 			}

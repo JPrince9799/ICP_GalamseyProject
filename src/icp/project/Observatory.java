@@ -1,14 +1,11 @@
-package icp.project;
+ package icp.project;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-/*
- * @author Ransford Nyarko
- * @author Naa Akle Noi
+/**
  * @author Georgette Asiedu
+ * @author Naa Akle Noi
+ * @author Ransford Nyarko
  * @author Joseph Prince-Agbodjan
- * @version 1.1
- * 
  * This is the observatory class to store and retrieve the name of the observatory, 
  * the name of the country in which it is located, the year in which “galamsey” observations 
  * started, the area covered by the observatory (in square kilometers) and a list of “galamsey” 
@@ -17,130 +14,231 @@ import java.util.Scanner;
 
 public class Observatory extends Galamsey{
 	
-	String nameofObservatory;
-	String nameofCountry;
-	String yearGStarted;
-	double areaCovered;
-	ArrayList<Galamsey> GEvents;
-	ArrayList<Observatory>OBEvents;
+	String nameofObservatory;		//instance variable for name of observatory
 	
+	String nameofCountry;			//instance variable for name of country
+	
+	int yearGStarted;			//instance variable for year Galamsey event started
+	
+	double areaCovered;				//instance variable for area being covered
+	
+	ArrayList<Galamsey> GEvents;	//instance variable for list of Galamsey events
+	
+	
+	/**
+	 * @version 1.1
+	 * Defualt constructor
+	 */
 	public Observatory() {}
-	public Observatory(String nos, String noc, String ygs, double ac, ArrayList <Galamsey> gev) {
-		this.nameofObservatory = nos;
-		this.nameofCountry = noc;
-		this.yearGStarted = ygs;
-		gev.addAll(GEvents);
+	
+	
+	
+	/**
+	 * @version 1.2
+	 * @param nos
+	 * @param noc
+	 * @param ygs
+	 * @param ac
+	 * This is the overloaded constructor that instantiates an object of the observatory class
+	 */
+	public Observatory(String nos, String noc, int ygs, double ac) {
+		
+		this.nameofObservatory = nos;			//assigns name of observatory
+		
+		this.nameofCountry = noc;				//assigns name of countries
+		
+		this.yearGStarted = ygs;				//assigns year Galamsey events started
+		
 	}
+	
 
+	//Getters
+	
+	/**
+	 * @return nameofObservatory
+	 */
 	public String getNameofObservatory() {
 		return nameofObservatory;
 	}
 
-
-
-	public void setNameofObservatory(String nameofObservatory) {
-		this.nameofObservatory = nameofObservatory;
-	}
-
-
-
+	/**
+	 * @return nameofCountry
+	 */
 	public String getNameofCountry() {
 		return nameofCountry;
 	}
 
+	/**
+	 * @return yearGStarted
+	 */
+	public int getYearGStarted() {
+		return yearGStarted;
+	}
+	
+	/**
+	 * @return areaCovered
+	 */
+	public double getAreaCovered() {
+		return areaCovered;
+	}	
+	
+	/**
+	 * @return GEvents
+	 */
+	public ArrayList<Galamsey> getGEvents() {
+		return GEvents;
+	}
+	
 
+	//SETTERS
+	
+	
+	/**
+	 * @param nameofObservatory
+	 */
+	public void setNameofObservatory(String nameofObservatory) {
+		this.nameofObservatory = nameofObservatory;
+	}
 
+	/**
+	 * @param nameofCountry
+	 */
 	public void setNameofCountry(String nameofCountry) {
 		this.nameofCountry = nameofCountry;
 	}
 
-
-
-	public String getYearGStarted() {
-		return yearGStarted;
-	}
-
-
-
-	public void setYearGStarted(String yearGStarted) {
+	/**
+	 * @param yearGStarted
+	 */
+	public void setYearGStarted(int yearGStarted) {
 		this.yearGStarted = yearGStarted;
 	}
 
-
-
-	public double getAreaCovered() {
-		return areaCovered;
-	}
-
-
-
+	/**
+	 * @param areaCovered
+	 */
 	public void setAreaCovered(double areaCovered) {
 		this.areaCovered = areaCovered;
 	}
 
-
-
-	public ArrayList<Galamsey> getGEvents() {
-		return GEvents;
-	}
-
-
-
+	/**
+	 * @param gEvents
+	 */
 	public void setGEvents(ArrayList<Galamsey> gEvents) {
 		GEvents = gEvents;
 	}
 	
-	public int getLargestColour() {
-		int largest = 0;
-		for(int i = 0; i < GEvents.size() - 1; i ++) {
-			if(GEvents.get(i).getColorValue() > largest) {
-				largest = i;
+	
+	
+	/**
+	 * @return largest
+	 */
+	public int getLargestColorValue() {
+		
+		int largest = 0;			//instance variable to hold temporary color values of Galamsey events
+		
+		//for - each loop to get the largest color value from the list of Galamsey events
+		for(Galamsey large: GEvents) {
+			
+			//variable to hold the galamsey color value of each event
+			int temp = large.getColorValue();
+			
+			//if-else condition to check the largest variable
+			if(temp > largest) {
+
+				//reassignment of the largest variable
+				largest = temp;
+				
 			}
+			
 		}
-		return largest;
+		//return the largest value saved when the loop terminates
+		return largest;			//return statement
 	}
 	
+	
+	
+	/**
+	 * @return avgColorValue
+	 */
 	public double getAverageColVal() {
 		
-		int sum = 0;
+		int sum = 0;						//instance variable for the accumulated sum
 		
-		for(int i = 0; i < GEvents.size() - 1; i ++) {
+		double avgColorVal = 0;				//instance variable for the average value
 		
-			sum += GEvents.get(i).getColorValue();
-		
-		}
-		
-		return sum/GEvents.size();
-	}
-	
-	public ArrayList<Galamsey> getGreaterthan(){
-		
-		System.out.println("Enter arbitary value");
-		
-		Scanner keyboard = new Scanner(System.in);
-		
-		int data = keyboard.nextInt();
-		
-		ArrayList<Galamsey> go1 = new ArrayList<Galamsey>();
-		
-		for(int i = 0; i < GEvents.size() - 1; i ++) {
-		
-			if(GEvents.get(i).getColorValue() > data) {
-				
-				go1.add(GEvents.get(i));
+		//for-each loop to loop through the galamsey events
+		for(Galamsey large: GEvents) {
 			
-			}
-		
+			//variable to hold the galamsey color value of each event
+			int temp = large.getColorValue();
+			
+			//accumulate the color values of all entries
+			sum = sum + temp;
+			
 		}
 		
-		return go1;
+		//compute the average color value entry
+		avgColorVal = sum / GEvents.size();
+		
+		return avgColorVal;
+	}
+		
+	
+	/**
+	 * @param num
+	 * @return TEMP
+	 * Method to return a temporal list of Galamsey Events that have a color value
+	 * greater than the entered arbitrary value
+	 */
+	public ArrayList<Galamsey> getGreaterthanX(int num){
+		
+		//create the temporal arraylist that holds the selected galamsey events
+		ArrayList<Galamsey> TEMP = new ArrayList<Galamsey>();
+		
+		try {
+			
+			//validate that the entered arbitrary values
+			if(1 <= num && num <= 3) {
+				
+				//for each loop to run through the Galamsey events
+				for(Galamsey X: GEvents) {
+					
+					//temporary variable to hold the color value of the specified event
+					int tempcval = X.getColorValue();
+					
+					//condition to check if the color value is greater than the arbitrary value
+					if(tempcval > num) {
+						
+						//if the condition is satisfied the details of the Galamsey event is added to the temporary array
+						TEMP.add(X);
+						
+					}
+				}
+			}
+		}
+		
+		//error handler
+		catch(Exception e) {
+			
+			//user error message
+			System.out.println("The number you entered does not match the values <1, 2, or 3>");
+			
+			//error message thrown
+			e.getMessage();
+			
+		}
+		
+		//return the entire array to the array
+		return TEMP;
 		
 	}
-	
-
-
 
 	public static void main(String[] args) {
+		
+		Observatory o = new Observatory("num1", "ghana", 1029, 434.355);
+		
+		System.out.println(o);
 		
 	}
 

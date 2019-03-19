@@ -1,236 +1,115 @@
 package icp.project;
 
-import java.util.Scanner;
 
-/*
- * @author Ransford Nyarko
- * @author Naa Akle Noi
+/**
  * @author Georgette Asiedu
+ * @author Naa Akle Noi
+ * @author Ransford Nyarko
  * @author Joseph Prince-Agbodjan
- * @version 1.1
- * 
  * This is the galamsey class to store and retrieve information about the 
  * vegetation color, color value, position(latitude and longitude) and year of the event
- */
+ */ 
+
 
 public class Galamsey {
 	
-	int colorValue;
-	double latitude;
-	double longitude;
-	int yearEvent;
-	enum color{GREEN, YELLOW, BROWN};
-	color Colour;
+	Color colorValue;			//instance variable for color value
 	
-	public Galamsey() {}
+	String vegColor;			//instance variable for vegetation color
 	
-	/*
-	public Galamsey(int clvalue, double lat, double lng, String yr, color Colour) {
-		
-		this.latitude = lat;
-		this.longitude = lng;
-		this.yearEvent = yr;
-		this.colorValue = clvalue;
-		this.Colour = Colour;
-		
-	}
-	*/
+	double latitude;			//instance variable for latitude of the location
 	
-	private void input() {
+	double longitude;			//instance variable for longitude of the location
+	
+	int yearEvent;				//instance variable for the year of the Galamsey event
+	
+	
+	/**
+	 * @version 0
+	 * This is an enum class that converts the color value entered by the user to the appropriate color value
+	 */
+	public enum Color{
 		
-		Scanner scan = new Scanner(System.in);
-		
-		for(int i = 1; i <= 5; i++) {
-			
-			int clval = 0;
-			
-			System.out.println("Iteration " + i);
-			
-			if(i == 1) {
-				
-				
-				System.out.println("Enter the color value <1, 2, or 3>: ");
+		one("Green"), two("Yellow"), three("Brown");
 
-				clval = scan.nextInt();
-				
-				if(0 < clval) {
-					
-					if(clval <= 3) {
-						
-						System.out.println("Colour Value is now: " + clval);
-						
-						System.out.println("This is a Valid Colour value");
-						
-						this.colorValue = clval;
-						
-						continue;
-					}
-					
-				}
-				
-					
-				else {
-					
-					System.out.println("other!");
-					
-				}
-			}
-			
-			if(i == 2) {
-				
-				System.out.println("Enter the latitude: ");
-				
-				double lt = scan.nextDouble();
-				
-				this.latitude = lt;
-				/*
-				try {
-					
-					double lat = Double.parseDouble(lt);
-					
-					this.latitude = lat;
-					
-				}
-				
-				catch(Exception e) {
-					
-					e.getMessage();
-					
-				}
-				*/
-			}
+		String vegColour;		//instance variable to store the vegetation color of the enum
 		
-			if(i == 3) {
-				
-				System.out.println("Enter the longitude: ");
-				
-				double lg = scan.nextDouble();
-				
-				this.longitude = lg;
-				/*
-				try {
-					
-					double lon = Double.parseDouble(lg);
-					
-					this.longitude = lon;
-					
-				}
-				
-				catch(Exception e) {
-					
-					e.getMessage();
-										
-				}
-				*/
-			}
+		/**
+		 * @param vcol
+		 */
+		Color(String vcol) {
 			
-			if(i == 4) {
-				
-				System.out.println("Enter the year of the event: ");
-				
-				int yr = scan.nextInt();
-				
-				this.yearEvent = yr;
-				/*
-				try {
-					
-					int year = Integer.parseInt(yr);
-					
-					if (0000 < year && year <= 9999) {
-						
-						this.yearEvent = year;
-					}
-					
-				}
-				
-				catch(Exception e) {
-					
-					e.getMessage();
-
-				}
-				*/
-			}
-			
-			if (i == 5) {
-				
-				System.out.println("Enter the color: ");
-				
-				String col = scan.nextLine().toUpperCase();
-				
-				/*
-				if(clval == 1 && (!(col.equals("GREEN")))) {
-					
-					System.out.println("The colour you entered does not match the colour value");
-					
-				}
-				if(clval == 2 && (!(col.equals("YELLOW")))) {
-					
-					System.out.println("The colour you entered does not match the colour value");
-					
-				}
-				if(clval == 3 && (!(col.equals("BROWN")))) {
-					
-					System.out.println("The colour you entered does not match the colour value");
-					
-				}
-				*/
-				if(col.equals("GREEN")){
-					
-					setColour(color.GREEN);
-					
-				}
-				
-				else if(col.equals("YELLOW")) {
-					
-					setColour(color.YELLOW);
-					
-				}
-				
-				else if(col.equals("BROWN")) {
-					
-					setColour(color.BROWN);
-					
-				}
-				
-			}
+			this.vegColour = vcol;
 			
 		}
-				
+		
+		/**
+		 * @return vegColor
+		 */
+		public String getColor() {
+			
+			return this.vegColour;
+		}
 	}
 	
 	
-	//GETTERS AND SETTERS	
+	/**
+	 * Default constructor
+	 * @version 1.1
+	 */
+	public Galamsey() {}
+
+	/**
+	 * @param cval
+	 * @param lat
+	 * @param lon
+	 * @param yr
+	 * @throws IllegalArgumentException
+	 * overloaded constructor that instantiates an object of the Galamsey class
+	 */
+	public Galamsey(String cval,double lat,double lon,int yr)throws IllegalArgumentException {
+		
+		this.colorValue = Color.valueOf(cval);
+		
+		this.vegColor = colorValue.getColor();
+		
+		this.latitude = lat;
+		
+		this.longitude = lon;
+		
+		if(yr > 99 && yr < 9999) {
+			this.yearEvent = yr;
+		}
+		else{throw new IllegalArgumentException();}
+	}
+	
+	
+	
+	//SETTERS
+	
+	
 	/*
 	 * Return the color value of the field
 	 */
 	public int getColorValue() {
-		return colorValue;
+		
+		if(this.vegColor == "Green") return 1;
+		else if(this.vegColor == "Yellow") return 2;
+		else return 3;
+		
 	}
 	
-	/*
-	 * This gets the color of the vegetation
-	 */
-	public color getColour() {
-		return Colour;
-	}
-
-	public void setColour(color colour) {
-		Colour = colour;
-	}
 
 	/*
 	 * @param colorValue
 	 * set the color value of the field
 	 */
-	public void setColorValue(int colorValue) {
-		this.colorValue = colorValue;
-	}
-	
-	/*
-	 * Return the latitude of the field
-	 */
-	public double getLatitude() {
-		return latitude;
+	public void setColorValue(String colval) {
+		
+		this.colorValue = Color.valueOf(colval);
+		
+		this.vegColor = colorValue.getColor();
+		
 	}
 	
 	/*
@@ -242,10 +121,11 @@ public class Galamsey {
 	}
 	
 	/*
-	 * Return the longitude of the field
+	 * @param yearEvent
+	 * Set the year of the event
 	 */
-	public double getLongitude() {
-		return longitude;
+	public void setYearEvent(int yearEvent) {
+		this.yearEvent = yearEvent;
 	}
 	
 	/*
@@ -255,6 +135,25 @@ public class Galamsey {
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
+	
+	
+	//GETTERS
+	
+	/*
+	 * Return the latitude of the field
+	 */
+	public double getLatitude() {
+		return latitude;
+	}
+	
+
+	/*
+	 * Return the longitude of the field
+	 */
+	public double getLongitude() {
+		return longitude;
+	}
+	
 
 	/*
 	 * Get the year of the event
@@ -263,31 +162,24 @@ public class Galamsey {
 		return yearEvent;
 	}
 
-	/*
-	 * @param yearEvent
-	 * Set the year of the event
-	 */
-	public void setYearEvent(int yearEvent) {
-		this.yearEvent = yearEvent;
-	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 * toString() method
+	 * Auxilliary method that prints the details of a galamsey event
+	 */
 	public String toString() {
-		return "The colour of the vegetation is: "+ getColour() + '\n' +
-				"The color value is: " + this.colorValue + '\n' + 
+		return "The colour of the vegetation is: "+ this.vegColor + '\n' +
+				"The color value is: " + getColorValue() + '\n' + 
 				"The position of the location has latitude " + this.latitude + " and longitude " +this.longitude + '\n' + 
 				"The year of the event is: " + this.yearEvent;
 	}
 	
 	public static void main(String[] args) throws Exception {
 		
-		Galamsey g = new Galamsey();
-		
-		g.input();
-		
-		System.out.println("we are done");
+		Galamsey g = new Galamsey("one", 3.2, 4.5, 2019);
 		
 		System.out.println(g.toString());
-		
 		
 	}
 
