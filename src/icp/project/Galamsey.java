@@ -1,6 +1,7 @@
 package icp.project;
 
 
+
 /**
  * @author Georgette Asiedu
  * @author Naa Akle Noi
@@ -73,14 +74,26 @@ public class Galamsey {
 		
 		this.vegColor = colorValue.getColor();
 		
-		this.latitude = lat;
+		if(lat >= -90 && lat <= 90) {
+			this.latitude = lat;
+		}
+		else{
+			System.out.println("The latitude you entered is out of range");
+			throw new IllegalArgumentException();}
 		
-		this.longitude = lon;
+		if(lon >= -180 && lon <= 180) {
+			this.longitude = lon;
+		}
+		else{
+			System.out.println("The longitude you entered is out of range");
+			throw new IllegalArgumentException();}
 		
 		if(yr > 99 && yr < 9999) {
 			this.yearEvent = yr;
 		}
-		else{throw new IllegalArgumentException();}
+		else{
+			System.out.println("The year you entered is out of range");
+			throw new IllegalArgumentException();}
 	}
 	
 	
@@ -177,7 +190,7 @@ public class Galamsey {
 	
 	public static void main(String[] args) throws Exception {
 		
-		Galamsey g = new Galamsey("one", 3.2, 4.5, 2019);
+		Galamsey g = new Galamsey("one", 90, 180, 2019);
 		
 		System.out.println(g.toString());
 		

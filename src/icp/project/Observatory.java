@@ -22,7 +22,7 @@ public class Observatory extends Galamsey{
 	
 	double areaCovered;				//instance variable for area being covered
 	
-	ArrayList<Galamsey> GEvents;	//instance variable for list of Galamsey events
+	static ArrayList<Galamsey> GEvents;	//instance variable for list of Galamsey events
 	
 	
 	/**
@@ -41,13 +41,18 @@ public class Observatory extends Galamsey{
 	 * @param ac
 	 * This is the overloaded constructor that instantiates an object of the observatory class
 	 */
-	public Observatory(String nos, String noc, int ygs, double ac) {
+	public Observatory(String nos, String noc, int ygs, double ac) throws IllegalArgumentException {
 		
 		this.nameofObservatory = nos;			//assigns name of observatory
 		
 		this.nameofCountry = noc;				//assigns name of countries
 		
-		this.yearGStarted = ygs;				//assigns year Galamsey events started
+		if(ygs > 99 && ygs < 9999) {
+			this.yearGStarted = ygs;
+		}
+		else{throw new IllegalArgumentException();}				//assigns year Galamsey events started
+		
+		this.areaCovered = ac;					//assigns area covered to intialized variable
 		
 	}
 	
@@ -129,11 +134,26 @@ public class Observatory extends Galamsey{
 	}
 	
 	
+	/**
+	 * @param GE
+	 */
+	public void saveGEvent(Galamsey GE) {
+		
+		GEvents.add(GE);
+		
+	}
+	
+	public static ArrayList<Galamsey> getList(){
+		
+		return GEvents;
+		
+	}
+	
 	
 	/**
 	 * @return largest
 	 */
-	public int getLargestColorValue() {
+	public int getLargestGColorValue() {
 		
 		int largest = 0;			//instance variable to hold temporary color values of Galamsey events
 		
@@ -161,7 +181,7 @@ public class Observatory extends Galamsey{
 	/**
 	 * @return avgColorValue
 	 */
-	public double getAverageColVal() {
+	public double getAverageGColVal() {
 		
 		int sum = 0;						//instance variable for the accumulated sum
 		
@@ -233,13 +253,12 @@ public class Observatory extends Galamsey{
 		return TEMP;
 		
 	}
-
-	public static void main(String[] args) {
-		
-		Observatory o = new Observatory("num1", "ghana", 1029, 434.355);
-		
-		System.out.println(o);
-		
+	
+	public String toString() {
+		return "The name of the observatory is: "+ this.nameofObservatory + '\n' +
+				"The country is: " + this.nameofCountry + '\n' + 
+				"The year of the observatory is " + this.yearGStarted + '\n' + 
+				"The area covered is: " + this.areaCovered + " km sq";
 	}
 
 }

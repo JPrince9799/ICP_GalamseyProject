@@ -1,4 +1,5 @@
 package icp.project;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Scanner;
@@ -15,7 +16,7 @@ import java.util.Scanner;
 
 public class Monitoring {
 	
-	ArrayList<Observatory> OBevents;			//instance of an arrayList to hold all the observatories
+	ArrayList<Observatory> OBEvents;			//instance of an arrayList to hold all the observatories
 	
 	
 	
@@ -27,54 +28,109 @@ public class Monitoring {
 	
 	
 	/**
-	 * @param 
+	 * @param OBdata
 	 */
-	public Monitoring(Observatory d) {
+	public void OBtrack(Observatory OBdata) {
 		
-		String hold = d.getNameofObservatory();
-		
-		
+		OBEvents.add(OBdata);
 		
 	}
 	
-	public int getObsWithLargeVal() {
+	/*
+	public ArrayList<Galamsey> getGEvents() {
+		
+		return Observatory.getList();
+		
+	}
+	*/
+	public String getObsWithLargeCVal() {
+		
 		int largest = 0;
-		Observatory os = new Observatory();
-		for (int i = 0; i > OBevents.size() - 1; i++ ) {
-			if(OBevents.get(i).getLargestColorValue() > largest) {
-				largest = OBevents.get(i).getLargestColorValue();
-				os = OBevents.get(i);
+		
+		Observatory temp = null;
+		
+		for(Observatory u: OBEvents) {
+				
+			ArrayList<Galamsey> j = u.getGEvents();
+		
+			for(Galamsey cv: j) {
+				
+				int clval = cv.getColorValue();
+			
+				if(clval > largest) {
+						
+					largest = clval;
+						
+					temp = u;	
+						
+					}
 			}
-		}
-		return os.getLargestColorValue();
+	}
+		
+		return "The Observatory with the largest color value is: " +  temp.getNameofObservatory();
+	
+		
 	}
 	
-	public double getObsWithLargAvgeVal() {
-		double largest = 0;
-		Observatory os1 = new Observatory();
-		for (int i = 0; i > OBevents.size() - 1; i++ ) {
-			if(OBevents.get(i).getLargestColorValue() > largest) {
-				largest = OBevents.get(i).getAverageColVal();
-				os1 = OBevents.get(i);
+	@SuppressWarnings("null")
+	public String getObsWithLargAvgeVal() {
+		int avg = 0;
+		
+		int cal = 0;
+		
+		Observatory temp1 = null;
+		
+		for(Observatory u: OBEvents) {
+				
+			ArrayList<Galamsey> j = u.getGEvents();
+			
+			int[] sum = new int[j.size()];
+			
+			for(int i = 0; i < j.size(); i++) {
+				
+				int temp = j.get(i).getColorValue();
+				
+				sum[i] = temp;
+				
 			}
-		}
-		return os1.getAverageColVal();
+			
+			for(int o = 0; o < sum.length; o++) {
+				
+				cal = cal + sum[o];
+				
+			}
+			
+			avg = cal / j.size();
+	}
+		
+		return "The observatory with the largest colour value recorded is " + temp1.getNameofObservatory();
+		
 	}
 	
-	public ArrayList<Galamsey> getGreaterthan(){
-		System.out.println("Enter arbitary value");
-		Scanner keyboard = new Scanner(System.in);
-		int data = keyboard.nextInt();
-		ArrayList<Galamsey> go1 = new ArrayList<Galamsey>();
-		for (int i = 0; i < OBevents.size() - 1; i++) {
-			ArrayList<Galamsey>a = OBevents.get(i).getGEvents();
-			for(int x = 0; x < a.size() - 1; i ++) {
-				if(a.get(x).getColorValue() > data) {
-					go1.add(a.get(i));
+	@SuppressWarnings("null")
+	public String getGreaterthan(int gt){
+		
+		ArrayList<Galamsey> holdgt = null;
+		
+		for(Observatory u: OBEvents) {
+			
+			ArrayList<Galamsey> j = u.getGEvents();
+		
+			for(Galamsey cv: j) {
+				
+				int clval = cv.getColorValue();
+				
+				if(clval > gt) {
+					
+					holdgt.add(cv);
+					
 				}
+				
 			}
+			
 		}
-		return go1;
+		
+		return "This is a list of Galamsey event with a colour value greater than " + gt + "\n" + holdgt;
 		
 	} 
 
